@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="botaoVoltar"><</button>
+    <div id="containerCalendario">
+        <h1 id="mesTitulo"></h1>
+        <ul id="calendario">
+            <li class="diaSemana">Dom</li>
+            <li class="diaSemana">Seg</li>
+            <li class="diaSemana">Ter</li>
+            <li class="diaSemana">Qua</li>
+            <li class="diaSemana">Qui</li>
+            <li class="diaSemana">Sex</li>
+            <li class="diaSemana">Sab</li>
+        </ul>    
+    </div>
+    <div id="tooltip"></div>
+    <div id="horario">
+        <h1 id="diaHorario"></h1>
+        <button id="horarioFechar">x</button>
+        <ul id="listaHorarios"></ul>
+        <button id="adicionarHorario">+</button>
+    </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div id="containerInfo">
+                <h1>Marcar horário</h1>
+                <label for="tituloAgendamento">Nome:</label>
+                <div>
+                    <input type="text" name="tituloAgendamento" id="inputTituloAgendamento">
+                </div>
+                <label for="horario">Horario:</label>
+                <div style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-around;">
+                    <input type="text" class="inputHorario" name="inputHorario1" id="inputHorario1">
+                    <input type="text" class="inputHorario" name="inputHorario2" id="inputHorario2">
+                </div>
+                <div>
+                    <button class="buttonAgendar" id="buttonAgendar">Agendar</button>
+                    <button class="buttonAgendar" id="buttonCancelarAgendamento">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    
+</body>
+</html>

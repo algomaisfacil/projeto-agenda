@@ -1,0 +1,243 @@
+@font-face {
+    font-family: "Cocogoose";
+    src: url("assets/fonts/Cocogoose-Pro-Darkmode-trial.ttf");
+}
+
+@font-face {
+    font-family: "AlteHaas";
+    src: url("assets/fonts/AlteHaasGroteskRegular.ttf");
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: "Cocogoose";
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#semestre1{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+
+    width: 350px;
+    height: 500px;
+}
+
+button{
+    color: white;
+    font-family: "Cocogoose";
+    font-size: 20px;
+    border-radius: 150px;
+    border: none;
+    background-color: grey;
+    width: 150px;
+    height: 150px;
+    transition: all 0.1s ease-in-out;
+}
+
+button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
+}
+
+#botaoVoltar{
+    position: fixed;
+    font-size: 35px;
+    height: 75px;
+    width: 75px;
+
+    top: 20px;
+    left: 20px;
+    transition: all 0.1s ease-in-out;
+}
+
+li {
+    user-select: none;
+    display: flex;
+    cursor: pointer;
+    height: 40px;
+    width: 55px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#calendario{
+    padding: 0px;
+    display: grid;
+    list-style-type: none;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr, 1fr;
+    width: 500px;
+    height: 350px;
+    gap: 3px;
+}
+
+#containerCalendario{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.diaSemana{
+    text-align: center;
+    color: white;
+    background-color: black;
+    border-radius: 25px;
+}
+
+
+.dia{
+    font-family: "AlteHaas";
+    color: white;
+    user-select: none;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: grey;
+    border-radius: 25px;
+    transition: all 0.2s ease-in-out;
+}
+
+.folga{
+    color: black;
+    background-color: white;
+}
+
+.dia:hover{
+    transition: all 0.2s ease;
+    font-weight: bolder;
+    cursor: pointer;
+    font-size: 30px;
+    font-style: bold;
+}
+
+#tooltip{
+    font-family: "AlteHaas";
+    font-weight: bolder;
+    display: none; 
+    position: absolute; 
+    background: #333; 
+    color: #fff; 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    pointer-events: none; 
+    z-index: 1000;
+}
+
+#horarioFechar{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 20px;
+    right: 20px;
+}
+
+#horario{
+    font-family: "AlteHaas";
+    font-weight: bolder;
+    display: none;
+    grid-template-rows: auto 1fr auto;
+    align-content: start;
+    position: absolute; 
+    height: 775px;
+    width: 300px;
+    background: #333; 
+    color: #fff; 
+    padding: 5px 15px; 
+    border-radius: 25px; 
+    z-index: 1000;
+}
+
+#horario h1{
+    margin: 0px;
+    margin-top: 14px;
+}
+
+h1{
+    margin: 0;
+}
+
+#listaHorarios{
+    border-radius: 25px;
+    padding: 0px;
+    padding-left: 0px;
+    background-color: white;
+    height: 625px;
+    overflow-y: scroll;
+}
+
+.itemHorario{
+    font-family: "AlteHaas";
+    justify-content: left;
+    color: black;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+
+.horarioOcupado{
+    background-color: #333;
+    color: white;
+}
+
+#adicionarHorario{
+    margin-top: 1px;
+    margin-bottom: 13px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    border-radius: 25px;
+    border: none;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+}
+
+input:active{
+    border: none;
+}
+
+.inputHorario{
+    width: 110px;
+    height: 30px;
+}
+
+#containerInfo{
+    display: none;
+    position: absolute;
+    gap: 10px;
+    top: 30%;
+    z-index: 9999;
+    background-color: grey;
+    border-radius: 25px;
+    flex-direction: column;
+    padding: 10px;
+    height: 300px;
+    width: 250px;
+}
+
+.buttonAgendar{
+    background-color: dimgrey;
+    height: 60px;
+    width: 122px;
+}
+
+.inputError{
+    border: 1px solid red;
+}
