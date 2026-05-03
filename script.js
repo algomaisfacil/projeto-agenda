@@ -44,7 +44,7 @@ const anoAtual = new Date().getFullYear();
 const primeiroDiaSemana = new Date(anoAtual, mesNumero, 1).getDay();
 const diasMes = new Date(anoAtual, mesNumero + 1, 0).getDate();
 
-let agendamentos = JSON.parse(localStorage.getItem("meusAgendamentos")) || [];
+let agendamentos =  localStorage.getItem("meusAgendamentos") ? JSON.parse(localStorage.getItem("meusAgendamentos")) : [];
 
 //Adiciona li horarios
 function carregarHorarios(){
@@ -61,21 +61,24 @@ function carregarHorarios(){
             return agenda.ano === anoAtual &&
                    agenda.mes === mesNumero &&
                    agenda.dia === diaAtual &&
-                   horaInicio === hora || 
-                   horaFim === hora;
+                   (hora >=  horaInicio && hora <= horaFim);
         });
 
-        criarHorario(`${hora}:00`, agendamentoExiste ? agendamentoExiste : null);
+        criarHorario(`${hora}:00`, agendamentoExiste ? agendamentoExiste : null, agendamentoExiste ? agendamentoExiste.titulo : null);
     }
 }
 
-function criarHorario(texto, agendamento){
+function criarHorario(texto, agendamento, titulo){
     let li = document.createElement("li");
     li.textContent = texto;
     li.classList.add("itemHorario");
 
     if(agendamento){
         li.classList.add("horarioOcupado");
+        li.textContent = texto + " -";
+        let labelTitulo = document.createElement("label");
+        labelTitulo.textContent = titulo;
+        li.appendChild(labelTitulo);
 
     }
 
@@ -243,6 +246,22 @@ if(ulCalendario){
             return;
         }
 
+        const agendamentoExiste = agendamentos.find(agenda => {
+
+            return agenda.ano === anoAtual &&
+                   agenda.mes === mesNumero &&
+                   agenda.dia === diaAtual &&
+                   (agenda.fim >  h1 && agenda.inicio < h2);
+        });
+
+        if (agendamentoExiste) {
+            const querContinuar = confirm(`Atenção: Já existe um agendamento ("${agendamentoExiste.titulo}") neste horário. Deseja salvar o novo agendamento mesmo assim?`);
+            
+            if (!querContinuar) {
+                return; 
+            }
+        }
+
         const novoAgendamento = {
             ano: anoAtual,
             mes: mesNumero,
@@ -254,12 +273,11 @@ if(ulCalendario){
 
         agendamentos.push(novoAgendamento);
 
-        localStorage.setItem("meusAgendadas", JSON.stringify(agendamentos));
+        localStorage.setItem("meusAgendamentos", JSON.stringify(agendamentos));
         
         alert(`Agendado!`);
         verificarInputs();
         carregarHorarios();
-
 
         });
     }
