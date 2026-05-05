@@ -22,14 +22,8 @@ body{
     align-items: center;
 }
 
-#semestre1{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 5px;
-
-    width: 350px;
-    height: 500px;
+h1{
+    margin: 0;
 }
 
 button{
@@ -50,15 +44,16 @@ button:hover{
     transition: all 0.1s ease-in-out;
 }
 
-#botaoVoltar{
-    position: fixed;
-    font-size: 35px;
-    height: 75px;
-    width: 75px;
+input{
+    border-radius: 25px;
+    border: none;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+}
 
-    top: 20px;
-    left: 20px;
-    transition: all 0.1s ease-in-out;
+input:active{
+    border: none;
 }
 
 li {
@@ -70,6 +65,16 @@ li {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+#semestre1{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+
+    width: 350px;
+    height: 500px;
 }
 
 #calendario{
@@ -95,6 +100,7 @@ li {
     color: white;
     background-color: black;
     border-radius: 25px;
+    cursor: auto;
 }
 
 
@@ -123,6 +129,23 @@ li {
     font-style: bold;
 }
 
+.agendas{
+    background-color: grey;
+    margin-left: 50px;
+    border-radius: 5px;
+    height: 50px;
+    width: 100%;
+}
+
+
+#divContainerAgendas{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-right: 10px;
+    gap: 5px;
+}
+
 #tooltip{
     font-family: "AlteHaas";
     font-weight: bolder;
@@ -136,6 +159,17 @@ li {
     z-index: 1000;
 }
 
+#botaoVoltar{
+    position: fixed;
+    font-size: 35px;
+    height: 75px;
+    width: 75px;
+
+    top: 20px;
+    left: 20px;
+    transition: all 0.1s ease-in-out;
+}
+
 #horarioFechar{
     position: absolute;
     height: 40px;
@@ -147,7 +181,7 @@ li {
 #horario{
     font-family: "AlteHaas";
     font-weight: bolder;
-    display: none;
+    display: grid;
     grid-template-rows: auto 1fr auto;
     align-content: start;
     position: absolute; 
@@ -165,31 +199,44 @@ li {
     margin-top: 14px;
 }
 
-h1{
-    margin: 0;
+#ulListaHorarios{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    margin: 0px;
+    margin-top: 5px;
+    border-radius: 25px;
+    width: 100%;
+    padding: 0px;
+    background-color: none;
+    height: auto;
 }
 
-#listaHorarios{
-    border-radius: 25px;
+
+#divHorarios{
+    display: flex;
     padding: 0px;
-    padding-left: 0px;
-    background-color: white;
-    height: 625px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
     overflow-y: scroll;
 }
 
 .itemHorario{
+    margin: 0px;
+    padding: 0px;
+    height: 2px;
     font-family: "AlteHaas";
     justify-content: left;
-    color: black;
-    padding-left: 15px;
-    border-bottom: 2px solid black;
+    align-items: center;
+    color: white;
     width: 100%;
+    padding-left: 0px;
+    cursor: auto;
 }
 
 .itemHorario label{
     margin-left: 5px
-
 }
 
 .horarioOcupado{
@@ -199,26 +246,28 @@ h1{
     color: white;
 }
 
+.ocupadoMultiplos{
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#divTitulosAgendados{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3px;
+    width: 100%;
+    text-align: left;
+}
+
 #adicionarHorario{
-    margin-top: 1px;
+    margin-top: 10px;
     margin-bottom: 13px;
     height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-input{
-    border-radius: 25px;
-    border: none;
-    text-align: center;
-    width: 100%;
-    height: 30px;
-}
-
-input:active{
-    border: none;
 }
 
 .inputHorario{
@@ -247,5 +296,5 @@ input:active{
 }
 
 .inputError{
-    border: 1px solid red;
+    border: 3px solid red;
 }

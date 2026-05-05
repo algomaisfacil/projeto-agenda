@@ -4,7 +4,7 @@ const botaoVoltar = document.getElementById("botaoVoltar");
 const ulCalendario = document.getElementById("calendario");
 const tooltip = document.getElementById("tooltip");
 const divHorario = document.getElementById("horario");
-const ulHorarios = document.getElementById("listaHorarios");
+const ulListaHorarios = document.getElementById("ulListaHorarios");
 const horarioFechar = document.getElementById("horarioFechar");
 const h1DiaHorario = document.getElementById("diaHorario");
 const buttonAdicionarHorario = document.getElementById("adicionarHorario");
@@ -48,48 +48,82 @@ let agendamentos =  localStorage.getItem("meusAgendamentos") ? JSON.parse(localS
 
 //Adiciona li horarios
 function carregarHorarios(){
-    ulHorarios.innerHTML = "";
+    ulListaHorarios.innerHTML = "";
+    const agendamentosDoDia = agendamentos.filter(agenda => 
+        agenda.ano === anoAtual &&
+        agenda.mes === mesNumero &&
+        agenda.dia === diaAtual
+    );
 
     for (let i = 0; i < 24; i++){
+        let horaStr = i.toString().padStart(2, '0');
+        let textoHora = `${horaStr}:00`;
 
-        let hora = i.toString().padStart(2, '0');
-
-        const agendamentoExiste = agendamentos.find(agenda => {
-            let horaInicio = agenda.inicio.slice(0, 2); 
-            let horaFim = agenda.fim.slice(0, 2);
-            
-            return agenda.ano === anoAtual &&
-                   agenda.mes === mesNumero &&
-                   agenda.dia === diaAtual &&
-                   (hora >=  horaInicio && hora <= horaFim);
+        const ocupado = agendamentosDoDia.some(agenda => {
+            let hInicio = parseInt(agenda.inicio.split(':')[0]);
+            let hFim = parseInt(agenda.fim.split(':')[0]);
+            return i >= hInicio && i <= hFim;
         });
 
-        criarHorario(`${hora}:00`, agendamentoExiste ? agendamentoExiste : null, agendamentoExiste ? agendamentoExiste.titulo : null);
+        const variosAgendamentos = agendamentosDoDia.filter(agenda => {
+            let hInicio = parseInt(agenda.inicio.split(':')[0]);
+            return i === hInicio;
+        });
+
+
+        criarHorario(textoHora, ocupado, variosAgendamentos);
     }
 }
 
-function criarHorario(texto, agendamento, titulo){
-    let li = document.createElement("li");
-    li.textContent = texto;
-    li.classList.add("itemHorario");
+function criarHorario(texto, isOcupado, isMultiplos){
+    let liPlace = document.createElement("li");
+    liPlace.classList.add("itemHorario");
+    let liContainer = document.createElement("div");
+    liContainer.classList.add("agendas");
 
-    if(agendamento){
+    /*
+    if(isOcupado){
         li.classList.add("horarioOcupado");
-        li.textContent = texto + " -";
-        let labelTitulo = document.createElement("label");
-        labelTitulo.textContent = titulo;
-        li.appendChild(labelTitulo);
-
     }
+    */
 
-    ulHorarios.appendChild(li);
+    /*
+    if(isMultiplos && isMultiplos.length > 0){
+        let spanHora = document.createElement("span");
+        spanHora.textContent = texto;
+        li.appendChild(spanHora);
+    
 
+    let divTitulos = document.createElement("div");
+    divTitulos.id = "divTitulosAgendados"
+
+    isMultiplos.forEach(agenda => {
+        let label = document.createElement("label");
+        label.textContent = `- ${agenda.titulo} (${agenda.inicio})`;
+        divTitulos.appendChild(label);
+        li.classList.add('ocupadoMultiplos');
+        li.textContent = texto;
+    });
+    
+    li.appendChild(divTitulos);
+    
+    } else {
+        li.textContent = texto;
+    }
+    */
+    liPlace.textContent = texto;
+
+    /*
     li.addEventListener("click", function(){
         divContainerInfo.style.display = "flex";
         inputHorario1.value = texto;
         inputHorario2.value = null;
         inputTituloAgendamento.value = null;
     });
+    */
+    ulListaHorarios.appendChild(liPlace);
+    ulListaHorarios.appendChild(liContainer);
+    
 }
 
 function validarHorario(valor) {
