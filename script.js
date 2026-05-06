@@ -1,4 +1,4 @@
-const meses = document.querySelectorAll(".meses");
+const buttonMeses = document.querySelectorAll(".meses");
 const h1MesTitulo = document.getElementById("mesTitulo");
 const botaoVoltar = document.getElementById("botaoVoltar");
 const ulCalendario = document.getElementById("calendario");
@@ -12,8 +12,10 @@ const divContainerInfo = document.getElementById("containerInfo");
 const buttonCancelarAgendamento = document.getElementById("buttonCancelarAgendamento");
 const buttonAgendar = document.getElementById("buttonAgendar");
 const inputTituloAgendamento = document.getElementById("inputTituloAgendamento");
+const containerAgendas = document.getElementById("containerAgendas");
 const inputHorario1 = document.getElementById("inputHorario1");
 const inputHorario2 = document.getElementById("inputHorario2");
+const inputHorarioColor = document.getElementById("");
 
 const feriados2026 = [
     "2026-01-01", // Confraternização Universal
@@ -49,81 +51,55 @@ let agendamentos =  localStorage.getItem("meusAgendamentos") ? JSON.parse(localS
 //Adiciona li horarios
 function carregarHorarios(){
     ulListaHorarios.innerHTML = "";
-    const agendamentosDoDia = agendamentos.filter(agenda => 
-        agenda.ano === anoAtual &&
-        agenda.mes === mesNumero &&
-        agenda.dia === diaAtual
-    );
+    containerAgendas.innerHTML = "";
+    agendamentos.forEach((agenda) => {
+        if(
+            agenda.ano == anoAtual &&
+            agenda.dia == diaAtual &&
+            agenda.mes == mesNumero
+        ){
+        
+            let hora1 = Number(agenda.inicio.slice(0,2));
+            let minuto1 = Number(agenda.inicio.slice(3,5));
+
+            let hora2 = Number(agenda.fim.slice(0,2));
+            let minuto2 = Number(agenda.fim.slice(3,5));
+
+            let divAgendamento = document.createElement("div");
+            divAgendamento.classList.add("blocosAgendamentos");
+            divAgendamento.textContent = agenda.titulo;
+            divAgendamento.style.top = `${((hora1 * 60) + minuto1) - 1}px`; //o 1 é para compensar o escalonamento
+            divAgendamento.style.height = `${((hora2 * 60) + minuto2) - ((hora1 * 60) + minuto1)}px`;
+
+            containerAgendas.appendChild(divAgendamento);
+        }
+    });
 
     for (let i = 0; i < 24; i++){
         let horaStr = i.toString().padStart(2, '0');
         let textoHora = `${horaStr}:00`;
 
-        const ocupado = agendamentosDoDia.some(agenda => {
-            let hInicio = parseInt(agenda.inicio.split(':')[0]);
-            let hFim = parseInt(agenda.fim.split(':')[0]);
-            return i >= hInicio && i <= hFim;
-        });
-
-        const variosAgendamentos = agendamentosDoDia.filter(agenda => {
-            let hInicio = parseInt(agenda.inicio.split(':')[0]);
-            return i === hInicio;
-        });
-
-
-        criarHorario(textoHora, ocupado, variosAgendamentos);
+        criarHorario(textoHora, null, null);
     }
 }
 
 function criarHorario(texto, isOcupado, isMultiplos){
     let liPlace = document.createElement("li");
     liPlace.classList.add("itemHorario");
-    let liContainer = document.createElement("div");
-    liContainer.classList.add("agendas");
 
-    /*
-    if(isOcupado){
-        li.classList.add("horarioOcupado");
-    }
-    */
+    let spanHora = document.createElement("span");
+    spanHora.textContent = texto;
+    spanHora.classList.add("spanHora");
 
-    /*
-    if(isMultiplos && isMultiplos.length > 0){
-        let spanHora = document.createElement("span");
-        spanHora.textContent = texto;
-        li.appendChild(spanHora);
-    
+    let divBloco = document.createElement("div");
+    divBloco.classList.add("agendas");
 
-    let divTitulos = document.createElement("div");
-    divTitulos.id = "divTitulosAgendados"
+    liPlace.appendChild(spanHora);
+    liPlace.appendChild(divBloco);
 
-    isMultiplos.forEach(agenda => {
-        let label = document.createElement("label");
-        label.textContent = `- ${agenda.titulo} (${agenda.inicio})`;
-        divTitulos.appendChild(label);
-        li.classList.add('ocupadoMultiplos');
-        li.textContent = texto;
-    });
-    
-    li.appendChild(divTitulos);
-    
-    } else {
-        li.textContent = texto;
-    }
-    */
-    liPlace.textContent = texto;
-
-    /*
-    li.addEventListener("click", function(){
-        divContainerInfo.style.display = "flex";
-        inputHorario1.value = texto;
-        inputHorario2.value = null;
-        inputTituloAgendamento.value = null;
-    });
-    */
     ulListaHorarios.appendChild(liPlace);
-    ulListaHorarios.appendChild(liContainer);
-    
+
+
 }
 
 function validarHorario(valor) {
@@ -156,7 +132,7 @@ function verificarInputs(){
 }
 
 //Entrar na tela do mês
-meses.forEach(function(botao, index) {
+buttonMeses.forEach(function(botao, index) {
     botao.addEventListener("click", function () {
         
         localStorage.setItem("mesSelecionadoTitulo", botao.textContent);
@@ -308,6 +284,10 @@ if(ulCalendario){
         agendamentos.push(novoAgendamento);
 
         localStorage.setItem("meusAgendamentos", JSON.stringify(agendamentos));
+
+        let agendamento = document.createElement("div");
+        agendamento.classList.add("blocosAgendamentos");
+
         
         alert(`Agendado!`);
         verificarInputs();
