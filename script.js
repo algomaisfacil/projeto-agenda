@@ -15,7 +15,7 @@ const inputTituloAgendamento = document.getElementById("inputTituloAgendamento")
 const containerAgendas = document.getElementById("containerAgendas");
 const inputHorario1 = document.getElementById("inputHorario1");
 const inputHorario2 = document.getElementById("inputHorario2");
-const inputHorarioColor = document.getElementById("");
+const inputHorarioColor = document.getElementById("inputColorPick");
 
 const feriados2026 = [
     "2026-01-01", // Confraternização Universal
@@ -70,6 +70,7 @@ function carregarHorarios(){
             divAgendamento.textContent = agenda.titulo;
             divAgendamento.style.top = `${((hora1 * 60) + minuto1) - 1}px`; //o 1 é para compensar o escalonamento
             divAgendamento.style.height = `${((hora2 * 60) + minuto2) - ((hora1 * 60) + minuto1)}px`;
+            divAgendamento.style.backgroundColor = agenda.cor + "7f";
 
             containerAgendas.appendChild(divAgendamento);
         }
@@ -235,7 +236,10 @@ if(ulCalendario){
         buttonAgendar.addEventListener("click", function(){
         const h1 = inputHorario1.value;
         const h2 = inputHorario2.value;
+        const color = inputHorarioColor.value;
         const titulo = inputTituloAgendamento.value;
+
+        console.log(inputHorarioColor.value);
 
 
         if (!h1 || !h2 || !titulo){
@@ -278,7 +282,8 @@ if(ulCalendario){
             dia: diaAtual,
             inicio: inputHorario1.value,
             fim: inputHorario2.value,
-            titulo: inputTituloAgendamento.value
+            titulo: inputTituloAgendamento.value,
+            cor: inputHorarioColor.value
         };
 
         agendamentos.push(novoAgendamento);
