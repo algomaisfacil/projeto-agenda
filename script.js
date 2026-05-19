@@ -12,7 +12,7 @@ const divContainerInfo = document.getElementById("containerInfo");
 const buttonCancelarAgendamento = document.getElementById("buttonCancelarAgendamento");
 const buttonAgendar = document.getElementById("buttonAgendar");
 const inputTituloAgendamento = document.getElementById("inputTituloAgendamento");
-const containerAgendas = document.getElementById("containerAgendas");
+const divContainerAgendas = document.getElementById("divContainerAgendas");
 const inputHorario1 = document.getElementById("inputHorario1");
 const inputHorario2 = document.getElementById("inputHorario2");
 const inputHorarioColor = document.getElementById("inputColorPick");
@@ -51,7 +51,7 @@ let agendamentos =  localStorage.getItem("meusAgendamentos") ? JSON.parse(localS
 //Adiciona li horarios
 function carregarHorarios(){
     ulListaHorarios.innerHTML = "";
-    containerAgendas.innerHTML = "";
+    divContainerAgendas.innerHTML = "";
     agendamentos.forEach((agenda) => {
         if(
             agenda.ano == anoAtual &&
@@ -67,12 +67,15 @@ function carregarHorarios(){
 
             let divAgendamento = document.createElement("div");
             divAgendamento.classList.add("blocosAgendamentos");
-            divAgendamento.textContent = agenda.titulo;
+            let spanAgendamentoTitulo = document.createElement("span");
+            spanAgendamentoTitulo.classList.add("spanAgendamentoTitulo");
+            spanAgendamentoTitulo.textContent = agenda.titulo;
             divAgendamento.style.top = `${((hora1 * 60) + minuto1) - 1}px`; //o 1 é para compensar o escalonamento
+
             divAgendamento.style.height = `${((hora2 * 60) + minuto2) - ((hora1 * 60) + minuto1)}px`;
             divAgendamento.style.backgroundColor = agenda.cor + "7f";
-
-            containerAgendas.appendChild(divAgendamento);
+            divContainerAgendas.appendChild(divAgendamento);
+            divAgendamento.appendChild(spanAgendamentoTitulo);
         }
     });
 

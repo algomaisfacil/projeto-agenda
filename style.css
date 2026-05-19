@@ -140,9 +140,11 @@ li {
 
 
 #divContainerAgendas{
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
     padding-right: 10px;
     gap: 5px;
 }
@@ -214,9 +216,9 @@ li {
     text-align: center;
     background-color: rgba(0, 214, 214, 0.5);
     border-radius: 5px;
+    margin-left: 60px;
     height: 60px;
-    width: 238px;
-    margin-left: 62px;
+    width: 225px;
 }
 
 #ulListaHorarios{
@@ -240,6 +242,7 @@ li {
     width: 100%;
     height: 600px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .itemHorario{
@@ -264,12 +267,6 @@ li {
     padding-left: 15px;
     background-color: #333;
     color: white;
-}
-
-.ocupadoMultiplos{
-    height: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 #divTitulosAgendados{
@@ -317,4 +314,11 @@ li {
 
 .inputError{
     border: 3px solid red;
+}
+
+.spanAgendamentoTitulo{
+    position: absolute;
+    z-index: 9999;
+    margin-left: 3px;
+    font-weight: normal;
 }
